@@ -12,6 +12,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Java and Gradle
+        uses: actions/setup-java@v3
+        with: 
+          java-version: '17'
+          distributions: 'liberica'
+          cache: gradle
+
+      - name: Build app jar
+        run: gradle bootJar
+
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v3
         env:
