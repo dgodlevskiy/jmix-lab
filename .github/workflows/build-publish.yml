@@ -34,7 +34,7 @@ jobs:
 
       - name: Build Tag and push Docker Image
         env:
-          IMAGE_NAME: warhammster.jfrog.io/wh-docker/jfrog-docker-example-image:${{ github.run_number }}
+          IMAGE_NAME: warhammster.jfrog.io/wh-docker/jmix-lab:${{ github.run_number }}
         run: |
           jf docker build -t $IMAGE_NAME .
           jf docker push $IMAGE_NAME
@@ -46,7 +46,7 @@ jobs:
           # JFrog organization secret
           JFROG_CLI_BUILD_NUMBER : ${{ github.run_number }}
         run: |
-          # Export the build name and build nuber
+          # Export the build name and build number
           # Collect environment variables for the build
           jf rt build-collect-env
           # Collect VCS details from git and add them to the build
