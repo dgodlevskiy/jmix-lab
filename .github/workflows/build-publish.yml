@@ -24,7 +24,7 @@ jobs:
           gradle-version: 8.2
 
       - name: Build app jar
-        run: gradle bootJar
+        run: gradle -Pvaadin.productionMode=true bootJar
 
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v3
