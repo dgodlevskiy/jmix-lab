@@ -19,5 +19,18 @@ spec:
         image: warhammster.jfrog.io/wh-docker/jmix-lab
         ports:
         - containerPort: 8080
+        env:
+        - name: CRM_DB_HOST
+          value: postgres-dev
+        - name: CRM_DB_USERNAME
+          valueFrom:
+	        secretKeyRef:
+	          name: postgres-secret
+	          key: postgres-root-username
+        - name: CRM_DB_PASSWORD
+          valueFrom:
+	        secretKeyRef:
+	          name: postgres-secret
+	          key: postgres-root-password
       imagePullSecrets:
         - name: regcred
