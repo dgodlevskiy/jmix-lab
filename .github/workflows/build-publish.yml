@@ -26,11 +26,9 @@ jobs:
         with:
           gradle-version: 8.2
 
-      - name: CD to code dir
-        run: cd code
-
       - name: Build app jar
         run: gradle -Pvaadin.productionMode=true bootJar
+        working-directory: ./code
 
       - name: Setup JFrog CLI
         uses: jfrog/setup-jfrog-cli@v3
@@ -44,6 +42,7 @@ jobs:
         run: |
           jf docker build -t $IMAGE_NAME .
           jf docker push $IMAGE_NAME
+        working-directory: ./code
           
       - name: Publish Build info With JFrog CLI
         env:
