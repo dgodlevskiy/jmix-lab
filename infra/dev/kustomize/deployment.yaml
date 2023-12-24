@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jmix-lab-deployment
+  labels:
+    app: jmix-lab
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jmix-lab
+  template:
+    metadata:
+      labels:
+        app: jmix-lab
+    spec:
+      containers:
+      - name: jmix-lab
+        image: warhammster.jfrog.io/wh-docker/jmix-lab:latest
+        ports:
+        - containerPort: 8080
