@@ -21,7 +21,7 @@ spec:
         - containerPort: 8080
         env:
         - name: CRM_DB_HOST
-          value: 10.96.59.33:30432
+          value: $(POSTGRES_SERVICE_HOST):$(POSTGRES_SERVICE_PORT)
         - name: CRM_DB_USERNAME
           valueFrom:
             secretKeyRef:
