@@ -9,3 +9,5 @@ spec:
   ref:
     branch: main
   url: https://github.com/dgodlevskiy/jmix-lab
+  secretRef:
+    name: jmix-lab-auth

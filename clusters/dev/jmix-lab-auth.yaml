@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: jmix-lab-auth
+  namespace: flux-system
+type: Opaque
+data:
+  username: ZGdvZGxldnNraXkK
+  password: Z2hwX3lJNUJkUE9wdWQ1WEkxd3NuOEJuZGVWQURBY283VzEzSG9aRg==
