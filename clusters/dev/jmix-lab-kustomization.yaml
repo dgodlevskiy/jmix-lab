@@ -5,7 +5,7 @@ metadata:
   name: jmix-lab
   namespace: flux-system
 spec:
-  interval: 30m0s
+  interval: 60s
   path: ./infra/dev/kustomize
   prune: true
   retryInterval: 2m0s
