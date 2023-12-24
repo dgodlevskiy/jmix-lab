@@ -1,2 +1,2 @@
 # jmix-lab
-Test Jmix app 3
+Test Jmix app
