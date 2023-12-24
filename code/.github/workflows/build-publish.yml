@@ -10,7 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            code
 
       - name: Setup Java
         uses: actions/setup-java@v3
@@ -22,6 +25,9 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.2
+
+      - name: CD to code dir
+        run: cd code
 
       - name: Build app jar
         run: gradle -Pvaadin.productionMode=true bootJar
