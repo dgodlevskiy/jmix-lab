@@ -7,7 +7,7 @@ metadata:
 spec:
   interval: 1m0s
   secretRef:
-    name: github-repo-cred
+    name: jmix-lab
   ref:
     branch: main
   url: https://github.com/dgodlevskiy/jmix-lab
