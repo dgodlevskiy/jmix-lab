@@ -6,8 +6,6 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1m0s
-  secretRef:
-    name: jmix-lab
   ref:
     branch: main
   url: https://github.com/dgodlevskiy/jmix-lab
