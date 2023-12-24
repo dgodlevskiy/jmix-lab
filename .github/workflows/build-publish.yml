@@ -40,7 +40,7 @@ jobs:
 
       - name: Build Tag and push Docker Image
         env:
-          IMAGE_NAME: warhammster.jfrog.io/wh-docker/jmix-lab:${{ github.run_number }}
+          IMAGE_NAME: warhammster.jfrog.io/wh-docker/jmix-lab:latest
         run: |
           jf docker build -t $IMAGE_NAME .
           jf docker push $IMAGE_NAME
