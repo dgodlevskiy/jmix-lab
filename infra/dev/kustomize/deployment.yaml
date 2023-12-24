@@ -21,16 +21,16 @@ spec:
         - containerPort: 8080
         env:
         - name: CRM_DB_HOST
-          value: postgres-dev
+          value: 10.96.59.33:30432
         - name: CRM_DB_USERNAME
           valueFrom:
-	        secretKeyRef:
-	          name: postgres-secret
-	          key: postgres-root-username
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-root-username
         - name: CRM_DB_PASSWORD
           valueFrom:
-	        secretKeyRef:
-	          name: postgres-secret
-	          key: postgres-root-password
+            secretKeyRef:
+              name: postgres-secret
+              key: postgres-root-password
       imagePullSecrets:
         - name: regcred
