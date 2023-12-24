@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: jmix-lab
-        image: warhammster.jfrog.io/wh-docker/jmix-lab:latest
+        image: warhammster.jfrog.io/wh-docker/jmix-lab:13
         ports:
         - containerPort: 8080
       imagePullSecrets:
