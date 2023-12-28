@@ -25,6 +25,6 @@ jobs:
           push: true
           context: ./code
           build-args: |
-            jmix_premium_user=${{ secrets.$JMIX_PREMIUM_REPO_USER }}
-            jmix_premium_pass=${{ secrets.$JMIX_PREMIUM_REPO_PASS }}
+            jmix_premium_user=${{ secrets.JMIX_PREMIUM_REPO_USER }}
+            jmix_premium_pass=${{ secrets.JMIX_PREMIUM_REPO_PASS }}
           tags: lab:latest
