@@ -14,6 +14,7 @@ COPY ./src ./src
 COPY gradlew gradlew
 COPY build.gradle build.gradle
 COPY settings.gradle settings.gradle
+RUN chmod +x ./gradlew
 RUN ./gradlew -Pvaadin.productionMode=true bootJar
 
 FROM bellsoft/liberica-openjdk-alpine:17
