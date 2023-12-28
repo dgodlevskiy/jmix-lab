@@ -27,4 +27,4 @@ jobs:
           build-args: |
             jmix_premium_user=${{ secrets.JMIX_PREMIUM_REPO_USER }}
             jmix_premium_pass=${{ secrets.JMIX_PREMIUM_REPO_PASS }}
-          tags: wh-docker/lab:latest
+          tags: warhammster.jfrog.io/wh-docker/lab:latest
