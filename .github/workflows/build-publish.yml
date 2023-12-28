@@ -3,7 +3,7 @@ name: Build and Publish Dev Docker Image
 on:
   push:
     branches:
-      - develop
+      - main
 
 jobs:
   build-and-publish:
@@ -23,7 +23,8 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           push: true
-          build-args:
-            - jmix_premium_user=${{ secrets.$JMIX_PREMIUM_REPO_USER }}
-            - jmix_premium_pass=${{ secrets.$JMIX_PREMIUM_REPO_PASS }}
+          context: ./code
+          build-args: |
+            jmix_premium_user=${{ secrets.$JMIX_PREMIUM_REPO_USER }}
+            jmix_premium_pass=${{ secrets.$JMIX_PREMIUM_REPO_PASS }}
           tags: lab:latest
