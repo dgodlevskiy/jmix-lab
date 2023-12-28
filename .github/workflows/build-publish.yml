@@ -1,62 +1,29 @@
-name: Build and Tag Docker Image
+name: Build and Publish Dev Docker Image
 
 on:
   push:
     branches:
-      - main
-    paths:
-      - 'code/**'
-      
+      - develop
+
 jobs:
-  build-and-tag:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
         with:
-          sparse-checkout: |
-            code
+          registry: warhammster.jfrog.io
+          username: ${{ secrets.JF_USERNAME }}
+          password: ${{ secrets.JF_ACCESS_TOKEN }}
 
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with: 
-          java-version: '17'
-          distribution: 'liberica'
-
-      - name: Setup Gradle
-        uses: gradle/gradle-build-action@v2
+      - name: Build and push Docker Image
+        uses: docker/build-push-action@v5
         with:
-          gradle-version: 8.2
-
-      - name: Build app jar
-        run: gradle -Pvaadin.productionMode=true bootJar
-        working-directory: ./code
-
-      - name: Setup JFrog CLI
-        uses: jfrog/setup-jfrog-cli@v3
-        env:
-          JF_URL: ${{ secrets.JF_URL }}
-          JF_ACCESS_TOKEN: ${{ secrets.JF_ACCESS_TOKEN }}
-
-      - name: Build Tag and push Docker Image
-        env:
-          IMAGE_NAME: warhammster.jfrog.io/wh-docker/jmix-lab:latest
-        run: |
-          jf docker build -t $IMAGE_NAME .
-          jf docker push $IMAGE_NAME
-        working-directory: ./code
-          
-      - name: Publish Build info With JFrog CLI
-        env:
-          # Generated and maintained by GitHub
-          JFROG_CLI_BUILD_NAME: jfrog-docker-build-example
-          # JFrog organization secret
-          JFROG_CLI_BUILD_NUMBER : ${{ github.run_number }}
-        run: |
-          # Export the build name and build number
-          # Collect environment variables for the build
-          jf rt build-collect-env
-          # Collect VCS details from git and add them to the build
-          jf rt build-add-git
-          # Publish build info
-          jf rt build-publish
+          push: true
+          build-args:
+            - jmix_premium_user=${{ secrets.$JMIX_PREMIUM_REPO_USER }}
+            - jmix_premium_pass=${{ secrets.$JMIX_PREMIUM_REPO_PASS }}
+          tags: lab:latest
