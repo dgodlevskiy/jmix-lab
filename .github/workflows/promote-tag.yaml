@@ -18,25 +18,11 @@ jobs:
 
       - name: Push to QA with new tag
         run: echo 'Pushing to QA registery with new tag'
-
-  verify-qa:
-    runs-on: ubuntu-latest
-    environment: qa
-    needs: promote-qa
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Pull from dev registery
-        run: echo 'Pull from dev registery'
-
-      - name: Push to QA with new tag
-        run: echo 'Pushing to QA registery with new tag'
   
   promote-stage:
     runs-on: ubuntu-latest
     environment: stage
-    needs: verify-qa
+    needs: promote-qa
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -50,6 +36,7 @@ jobs:
   promote-prod:
     runs-on: ubuntu-latest
     environment: prod
+    needs: promote-stage
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
