@@ -1,0 +1,43 @@
+name: Build and Publish Dev Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  pull-publish-qa:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Pull from dev registery
+        run: echo 'Pull from dev registery'
+
+      - name: Push to QA with new tag
+        run: echo 'Pushing to QA registery with new tag'
+  
+  promote-stage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Pull from QA registery
+        run: echo 'Pull from QA registery'
+
+      - name: Push to Stage
+        run: echo 'Pushing to Stage registery with new tag'
+  
+  promote-prod:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Pull from Stage registery
+        run: echo 'Pull from Stage registery'
+
+      - name: Push to Prod
+        run: echo 'Pushing to prod registery with new tag'
