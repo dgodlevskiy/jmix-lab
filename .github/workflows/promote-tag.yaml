@@ -6,9 +6,23 @@ on:
       - main
 
 jobs:
-  pull-publish-qa:
+  promote-qa:
     runs-on: ubuntu-latest
     environment: qa
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Pull from dev registery
+        run: echo 'Pull from dev registery'
+
+      - name: Push to QA with new tag
+        run: echo 'Pushing to QA registery with new tag'
+
+  verify-qa:
+    runs-on: ubuntu-latest
+    environment: qa
+    needs: promote-qa
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,6 +36,7 @@ jobs:
   promote-stage:
     runs-on: ubuntu-latest
     environment: stage
+    needs: verify-qa
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
