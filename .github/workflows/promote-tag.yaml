@@ -15,8 +15,7 @@ jobs:
         
       - name: Define release version
         run: | 
-          releaseVersion=${GITHUB_REF_NAME#release/}.${{ github.run_number }}
-          echo "RELEASE_VERSION=releaseVersion" >> $GITHUB_ENV
+          echo "RELEASE_VERSION=${GITHUB_REF_NAME#release/}.${{ github.run_number }}" >> $GITHUB_ENV
 
       - name: Check release version
         run: |
