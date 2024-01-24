@@ -3,7 +3,7 @@ name: Build and Publish Dev Docker Image
 on:
   push:
     branches:
-      - main
+      - release/*
 
 jobs:
   promote-qa:
