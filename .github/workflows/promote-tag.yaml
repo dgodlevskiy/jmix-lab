@@ -12,12 +12,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Check version
-        run:  | 
+        
+      - name: Define release version
+        run: | 
           releaseVersion=${GITHUB_REF_NAME#release/}.${{ github.run_number }}
           echo "RELEASE_VERSION=releaseVersion" >> $GITHUB_ENV
-          echo "Release version: $RELEASE_VERSION"
+
+      - name: Check release version
+        run: echo "Release version: $RELEASE_VERSION"
 
       - name: Pull from dev registery
         run: echo 'Pull from dev registery'
