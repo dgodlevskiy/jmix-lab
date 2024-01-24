@@ -19,7 +19,8 @@ jobs:
           echo "RELEASE_VERSION=releaseVersion" >> $GITHUB_ENV
 
       - name: Check release version
-        run: echo "Release version: $RELEASE_VERSION"
+        run: |
+          echo "Release version: $RELEASE_VERSION"
 
       - name: Pull from dev registery
         run: echo 'Pull from dev registery'
