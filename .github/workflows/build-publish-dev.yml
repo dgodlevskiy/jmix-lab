@@ -3,14 +3,11 @@ name: Build and Publish Dev Docker Image
 on:
   push:
     branches:
-      - main
+      - develop
 
 jobs:
   build-and-publish:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
       - name: Build dev
         run: echo 'Building and deploying to dev'
