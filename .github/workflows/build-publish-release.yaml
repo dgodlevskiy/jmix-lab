@@ -1,0 +1,16 @@
+name: Build and Publish release Docker Image to QA
+
+on:
+  pull_request:
+    branches:
+      - release/*
+    types:
+      - closed
+
+jobs:
+  build-and-publish:
+    if:  startsWith(github.head_ref, 'develop') && github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build QA
+        run: echo 'Building and deploying to QA'
