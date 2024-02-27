@@ -30,7 +30,7 @@ jobs:
           SHORT_SHA=$(git rev-parse --short ${{ github.sha }})
           echo "Short SHA: $SHORT_SHA"
 
-          TAG="dev-$SHORT_SHA-${{ github.run_number }}
+          TAG="dev-$SHORT_SHA-${{ github.run_number }}"
           echo "Image tag: $TAG"
 
           echo "tag=$TAG" >> $GITHUB_OUTPUT
