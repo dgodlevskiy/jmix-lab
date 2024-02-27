@@ -1,9 +1,6 @@
-name: Build and Publish Dev Docker Image
+name: Promote tag to qa
 
-on:
-  push:
-    branches:
-      - release/*
+on: workflow_dispatch
 
 jobs:
   promote-qa:
@@ -13,39 +10,50 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Check version
-        run: echo "${{github.ref_name}:8}"
+      - name: Define image tag
+        id: tags
+        run: |
+          SHORT_SHA=$(git rev-parse --short ${{ github.sha }})
+          
+          TAG="qa-$SHORT_SHA-${{ github.run_number }}"
+          echo "Tag: $TAG"
 
-      - name: Pull from dev registery
-        run: echo 'Pull from dev registery'
+          TAG_SOURCE=$(git tag -l develop-*)
+          echo "Source tag: $TAG_SOURCE"
+          
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
 
-      - name: Push to QA with new tag
-        run: echo 'Pushing to QA registery with new tag'
+      - name: Add git tag with image tag
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git tag ${{ steps.tags.outputs.tag }}
+          git push origin ${{ steps.tags.outputs.tag }}
   
-  promote-stage:
-    runs-on: ubuntu-latest
-    environment: stage
-    needs: promote-qa
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  # promote-stage:
+  #   runs-on: ubuntu-latest
+  #   environment: stage
+  #   needs: promote-qa
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Pull from QA registery
-        run: echo 'Pull from QA registery'
+  #     - name: Pull from QA registery
+  #       run: echo 'Pull from QA registery'
 
-      - name: Push to Stage
-        run: echo 'Pushing to Stage registery with new tag'
+  #     - name: Push to Stage
+  #       run: echo 'Pushing to Stage registery with new tag'
   
-  promote-prod:
-    runs-on: ubuntu-latest
-    environment: prod
-    needs: promote-stage
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+  # promote-prod:
+  #   runs-on: ubuntu-latest
+  #   environment: prod
+  #   needs: promote-stage
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
 
-      - name: Pull from Stage registery
-        run: echo 'Pull from Stage registery'
+  #     - name: Pull from Stage registery
+  #       run: echo 'Pull from Stage registery'
 
-      - name: Push to Prod
-        run: echo 'Pushing to prod registery with new tag'
+  #     - name: Push to Prod
+  #       run: echo 'Pushing to prod registery with new tag'
