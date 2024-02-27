@@ -5,6 +5,12 @@ on: workflow_dispatch
 jobs:
   promote-qa:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
+      id-token: write
     environment: qa
     steps:
       - name: Checkout code
@@ -18,7 +24,7 @@ jobs:
           TAG="qa-$SHORT_SHA-${{ github.run_number }}"
           echo "Tag: $TAG"
 
-          TAG_SOURCE=$(git tag -l develop-*)
+          TAG_SOURCE=$(git tag -l dev-*)
           echo "Source tag: $TAG_SOURCE"
           
           echo "tag=$TAG" >> $GITHUB_OUTPUT
