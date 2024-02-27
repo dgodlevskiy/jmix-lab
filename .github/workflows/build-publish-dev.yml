@@ -40,4 +40,4 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "github-actions@users.noreply.github.com"
           git tag ${{ steps.tag.outputs.tag }}
-          git push ${{ steps.tag.outputs.tag }}
+          git push origin ${{ steps.tag.outputs.tag }}
