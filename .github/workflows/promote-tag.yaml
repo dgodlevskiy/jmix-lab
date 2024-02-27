@@ -26,9 +26,7 @@ jobs:
           TAG="qa-$SHORT_SHA-${{ github.run_number }}"
           echo "Tag: $TAG"
 
-          git tag
-
-          TAG_SOURCE=$(git tag -l dev-*)
+          TAG_SOURCE=$(git tag --points-at ${{ github.sha }} -l dev-*)
           echo "Source tag: $TAG_SOURCE"
           
           echo "tag=$TAG" >> $GITHUB_OUTPUT
