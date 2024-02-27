@@ -1,3 +1,3 @@
 # jmix-lab
-Test Jmix app 2
+Test Jmix Lab app
 v 1.0.1

@@ -1,13 +1,43 @@
-name: Build and Publish Dev Docker Image
+name: Build publish dev
 
 on:
   push:
     branches:
       - develop
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: whtest.jfrog.io/dev-docker-local
+  IMAGE_NAME: wh
 
 jobs:
-  build-and-publish:
+  build:
+
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      # This is used to complete the identity challenge
+      # with sigstore/fulcio when running outside of PRs.
+      id-token: write
+
     steps:
-      - name: Build dev
-        run: echo 'Building and deploying to dev'
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Define image tag
+        id: tag
+        run: |
+          SHORT_SHA=$(git rev-parse --short ${{ github.sha }})
+          echo "Short SHA: $SHORT_SHA"
+
+          TAG="dev-$SHORT_SHA-${{ github.run_number }}"
+          echo "Image tag: $TAG"
+
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
+      - name: Create git tag
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "github-actions@your-username@users.noreply.github.com"
+          git tag ${{ steps.tag.outputs.tag }}
+          git push origin ${{ steps.tag.outputs.tag }}
