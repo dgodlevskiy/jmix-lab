@@ -24,6 +24,8 @@ jobs:
           TAG="qa-$SHORT_SHA-${{ github.run_number }}"
           echo "Tag: $TAG"
 
+          git tag
+
           TAG_SOURCE=$(git tag -l dev-*)
           echo "Source tag: $TAG_SOURCE"
           
